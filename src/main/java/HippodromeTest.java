@@ -4,9 +4,6 @@ import org.junit.jupiter.api.BeforeAll;
 
 public class HippodromeTest {
 
-    @BeforeAll
-    public static void initialization(){}
-
     @Test
     public void Hippodrome() {}
 

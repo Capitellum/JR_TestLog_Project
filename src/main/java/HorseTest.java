@@ -1,26 +1,38 @@
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.Assert.assertThrows;
+import java.util.stream.Stream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-
-@ExtendWith(MockitoExtension.class)
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class HorseTest {
 
-    @BeforeAll
-    public static void initialization(){}
+    public static Stream<Arguments> BlankConstructorArgs() {
+       return Stream.of(
+               Arguments.of("", 0.0),
+               Arguments.of("  ",0.0),
+               Arguments.of("\t", 0.0));
+    }
 
     @Test
-    public void Horse(){
+    public void NullConstructor(){
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             Horse horse = new Horse(null, 0.0);
         });
         assertEquals("Name cannot be null.", exception.getMessage());
         }
+
+    @ParameterizedTest
+    @MethodSource("BlankConstructorArgs")
+    public void BlankConstructor(String name, double speed){
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            Horse horse = new Horse(name, speed);
+        });
+        assertEquals("Name cannot be blank.", exception.getMessage());
+    }
 
     @Test
     public void getName(){}
