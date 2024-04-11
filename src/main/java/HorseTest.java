@@ -1,7 +1,6 @@
-import org.junit.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.*;
+import org.junit.jupiter.params.provider.*;
 
 import java.util.stream.Stream;
 
@@ -9,13 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class HorseTest {
-
-    public static Stream<Arguments> BlankConstructorArgs() {
-       return Stream.of(
-               Arguments.of("", 0.0),
-               Arguments.of("  ",0.0),
-               Arguments.of("\t", 0.0));
-    }
 
     @Test
     public void NullConstructor(){
@@ -32,6 +24,13 @@ public class HorseTest {
             Horse horse = new Horse(name, speed);
         });
         assertEquals("Name cannot be blank.", exception.getMessage());
+    }
+
+    public static Stream<Arguments> BlankConstructorArgs() {
+        return Stream.of(
+                Arguments.of("", 0.0),
+                Arguments.of("  ",0.0),
+                Arguments.of("\t", 0.0));
     }
 
     @Test
